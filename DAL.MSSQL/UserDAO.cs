@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using DAL.Contracts;
+using Data;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -14,8 +15,8 @@ namespace DAL.MSSQL
 		{
 			return base.ExecuteReaderSingle("CreateUser", parameters =>
 			{
-				parameters.AddWithValue("login", user.Login);
-				parameters.AddWithValue("password", user.Password);
+				parameters.AddWithValue("@login", user.Login);
+				parameters.AddWithValue("@password", user.Password);
 			});
 		}
 
@@ -23,7 +24,7 @@ namespace DAL.MSSQL
 		{
 			return base.ExecuteReaderSingle("Delete", parameters =>
 			{
-				parameters.AddWithValue("id", user.Id);
+				parameters.AddWithValue("@id", user.Id);
 			});
 		}
 
@@ -31,8 +32,8 @@ namespace DAL.MSSQL
 		{
 			return base.ExecuteReaderCollection("GetUsers", parameters =>
 			{
-				parameters.AddWithValue("limit", limit);
-				parameters.AddWithValue("offset", offset);
+				parameters.AddWithValue("@limit", limit);
+				parameters.AddWithValue("@offset", offset);
 			});
 		}
 
@@ -40,7 +41,7 @@ namespace DAL.MSSQL
 		{
 			return base.ExecuteReaderSingle("GetUsers", parameters =>
 			{
-				parameters.AddWithValue("id", id);
+				parameters.AddWithValue("@id", id);
 			});
 		}
 
@@ -48,9 +49,9 @@ namespace DAL.MSSQL
 		{
 			return base.ExecuteReaderSingle("UpdateUser", parameters =>
 			{
-				parameters.AddWithValue("id", user.Id);
-				parameters.AddWithValue("login", user.Login);
-				parameters.AddWithValue("password", user.Password);
+				parameters.AddWithValue("@id", user.Id);
+				parameters.AddWithValue("@login", user.Login);
+				parameters.AddWithValue("@password", user.Password);
 			});
 		}
 
@@ -58,8 +59,8 @@ namespace DAL.MSSQL
 		{
 			return base.ExecuteReaderSingle("GetUser", parameters =>
 			{
-				parameters.AddWithValue("login", user.Login);
-				parameters.AddWithValue("password", user.Password);
+				parameters.AddWithValue("@login", user.Login);
+				parameters.AddWithValue("@password", user.Password);
 			});
 		}
 
@@ -67,9 +68,9 @@ namespace DAL.MSSQL
 		{
 			return new User
 			{
-				Id = (long)reader["id"],
-				Login = (string)reader["login"],
-				Password = (string)reader["password"],
+				Id = (long)reader["@id"],
+				Login = (string)reader["@login"],
+				Password = (string)reader["@password"],
 			};
 		}
 	}

@@ -1,7 +1,7 @@
 ﻿using Data;
 using System.Collections.Generic;
 
-namespace DAL.MSSQL
+namespace DAL.Contracts
 {
 	public interface IEntityDAO<TEntity, TId>
 		where TEntity : Entity<TId>

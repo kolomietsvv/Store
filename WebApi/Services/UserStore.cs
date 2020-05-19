@@ -10,6 +10,11 @@ namespace WebApi.Services
 	{
 		IUserService userService;
 
+		public UserStore(IUserService userService)
+		{
+			this.userService = userService;
+		}
+
 		public Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
 		{
 			return Task.Run(() => IdentityResult.Success);

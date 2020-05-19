@@ -24,10 +24,12 @@ namespace Store.Controllers
 			_signInManager = signInManager;
 		}
 
+
 		[HttpPost]
-		public async Task<IActionResult> SignIn()
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> SignIn(User user)
 		{
-			await _signInManager.SignInAsync(new User { }, isPersistent: false);
+			await _signInManager.SignInAsync(user, isPersistent: false);
 			return Redirect("/");
 		}
 

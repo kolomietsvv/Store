@@ -1,6 +1,6 @@
 ﻿using Data;
 
-namespace DAL.MSSQL
+namespace DAL.Contracts
 {
 	public interface IUserDAO : IEntityDAO<User, long>
 	{

@@ -1,4 +1,4 @@
-﻿using DAL.MSSQL;
+﻿using DAL.Contracts;
 using Data;
 
 namespace BLL

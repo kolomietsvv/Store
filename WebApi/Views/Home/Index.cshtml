@@ -2,17 +2,19 @@
 	ViewData["Title"] = "Home Page";
 }
 
+@model Data.User;
+
 <h1 class="display-4 text-center">Welcome</h1>
 <div class="container col-7">
-	<form asp-controller="Home" asp-action="SignIn">
+	<form asp-controller="Home" asp-action="SignIn" asp-antiforgery="true">
 		<div class="form-group">
 			<label for="login">Login</label>
-			<input type="email" class="form-control" id="login" aria-describedby="loginHelp" placeholder="Login">
+			<input type="text" class="form-control" id="login" aria-describedby="loginHelp" placeholder="Login" asp-for="Login">
 			<small id="loginHelp" class="form-text text-muted">Enter your login</small>
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" class="form-control" id="password" placeholder="Password">
+			<input type="password" class="form-control" id="password" placeholder="Password" asp-for="Password">
 		</div>
 		<div class="justify-content-end">
 			<button type="submit" class="btn btn-primary">Sign in</button>
