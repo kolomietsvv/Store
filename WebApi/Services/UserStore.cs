@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using BLL;
+using Data;
 using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ namespace WebApi.Services
 {
 	public class UserStore : IUserStore<User>
 	{
+		IUserService userService;
+
 		public Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
 		{
 			return Task.Run(() => IdentityResult.Success);
@@ -43,7 +46,7 @@ namespace WebApi.Services
 
 		public Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken)
 		{
-			return Task.Run(() => "MockUser");
+			return Task.Run(() => userService.GetUser(user).Login);
 		}
 
 		public Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)

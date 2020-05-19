@@ -1,6 +1,6 @@
 ﻿namespace Data
 {
-	public class Item
+	public class Item : Entity<long>
 	{
 		public string Name { get; set; }
 

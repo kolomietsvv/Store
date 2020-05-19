@@ -1,8 +1,7 @@
 ﻿namespace Data
 {
-	public class Role
+	public class Role : Entity<long>
 	{
-		public long Id { get; set; }
 		public string Name { get; set; }
 	}
 }
