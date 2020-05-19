@@ -1,34 +1,34 @@
 ﻿using DAL.Contracts;
-using Data;
+using DAL.Contracts.Data;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace DAL.MSSQL
 {
-	public class UserDAO : EntityDAO<User>, IUserDAO
+	public class UserDAO : EntityDAO<UserDTO>, IUserDAO
 	{
 		public UserDAO(string connectionString) : base(connectionString)
 		{
 		}
 
-		public User Create(User user)
+		public UserDTO Create(UserDTO UserDTO)
 		{
 			return base.ExecuteReaderSingle("CreateUser", parameters =>
 			{
-				parameters.AddWithValue("@login", user.Login);
-				parameters.AddWithValue("@password", user.Password);
+				parameters.AddWithValue("@login", UserDTO.Login);
+				parameters.AddWithValue("@password", UserDTO.PasswordHash);
 			});
 		}
 
-		public User Delete(User user)
+		public UserDTO Delete(UserDTO UserDTO)
 		{
 			return base.ExecuteReaderSingle("Delete", parameters =>
 			{
-				parameters.AddWithValue("@id", user.Id);
+				parameters.AddWithValue("@id", UserDTO.Id);
 			});
 		}
 
-		public List<User> GetAll(long limit, long offset)
+		public List<UserDTO> GetAll(long limit, long offset)
 		{
 			return base.ExecuteReaderCollection("GetUsers", parameters =>
 			{
@@ -37,7 +37,7 @@ namespace DAL.MSSQL
 			});
 		}
 
-		public User GetById(long id)
+		public UserDTO GetById(long id)
 		{
 			return base.ExecuteReaderSingle("GetUsers", parameters =>
 			{
@@ -45,32 +45,32 @@ namespace DAL.MSSQL
 			});
 		}
 
-		public User Update(User user)
+		public UserDTO Update(UserDTO UserDTO)
 		{
 			return base.ExecuteReaderSingle("UpdateUser", parameters =>
 			{
-				parameters.AddWithValue("@id", user.Id);
-				parameters.AddWithValue("@login", user.Login);
-				parameters.AddWithValue("@password", user.Password);
+				parameters.AddWithValue("@id", UserDTO.Id);
+				parameters.AddWithValue("@login", UserDTO.Login);
+				parameters.AddWithValue("@password", UserDTO.PasswordHash);
 			});
 		}
 
-		public User GetUser(User user)
+		public UserDTO GetUser(UserDTO UserDTO)
 		{
 			return base.ExecuteReaderSingle("GetUser", parameters =>
 			{
-				parameters.AddWithValue("@login", user.Login);
-				parameters.AddWithValue("@password", user.Password);
+				parameters.AddWithValue("@login", UserDTO.Login);
+				parameters.AddWithValue("@password", UserDTO.PasswordHash);
 			});
 		}
 
-		protected override User ReadEntity(SqlDataReader reader)
+		protected override UserDTO ReadEntity(SqlDataReader reader)
 		{
-			return new User
+			return new UserDTO
 			{
-				Id = (long)reader["@id"],
-				Login = (string)reader["@login"],
-				Password = (string)reader["@password"],
+				Id = (long)reader["id"],
+				Login = (string)reader["login"],
+				PasswordHash = (byte[])reader["password"],
 			};
 		}
 	}

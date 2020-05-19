@@ -1,9 +1,9 @@
-﻿using Data;
+﻿using DAL.Contracts.Data;
 
 namespace DAL.Contracts
 {
-	public interface IUserDAO : IEntityDAO<User, long>
+	public interface IUserDAO : IEntityDAO<UserDTO, long>
 	{
-		User GetUser(User user);
+		UserDTO GetUser(UserDTO user);
 	}
 }

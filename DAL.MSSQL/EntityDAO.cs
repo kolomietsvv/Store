@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL.MSSQL
@@ -48,6 +49,7 @@ namespace DAL.MSSQL
 		{
 			connection.Open();
 			SqlCommand command = new SqlCommand(storedProcedureName, connection);
+			command.CommandType = CommandType.StoredProcedure;
 			parametersConfigurator?.Invoke(command.Parameters);
 			SqlDataReader reader = command.ExecuteReader();
 			return reader;
