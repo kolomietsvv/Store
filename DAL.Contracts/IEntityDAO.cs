@@ -10,7 +10,7 @@ namespace DAL.Contracts
 
 		TEntity Update(TEntity entity);
 
-		TEntity Delete(TEntity entity);
+		TEntity Delete(TId entity);
 
 		TEntity GetById(TId id);
 

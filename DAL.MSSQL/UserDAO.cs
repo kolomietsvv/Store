@@ -20,11 +20,11 @@ namespace DAL.MSSQL
 			});
 		}
 
-		public UserDTO Delete(UserDTO UserDTO)
+		public UserDTO Delete(long id)
 		{
 			return base.ExecuteReaderSingle("Delete", parameters =>
 			{
-				parameters.AddWithValue("@id", UserDTO.Id);
+				parameters.AddWithValue("@id", id);
 			});
 		}
 

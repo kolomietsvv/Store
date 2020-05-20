@@ -2,6 +2,7 @@
 using DAL.Contracts.Data;
 using Data;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -25,12 +26,12 @@ namespace BLL
 			return GetUser(userDTO);
 		}
 
-		public User Delete(User user)
+		public User Delete(long id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public User GetAll(long limit, long offset)
+		public List<User> GetAll(long limit, long offset)
 		{
 			throw new NotImplementedException();
 		}

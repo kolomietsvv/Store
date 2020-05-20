@@ -1,18 +1,16 @@
-﻿using Data;
+﻿using DAL.Contracts;
+using Data;
 
 namespace BLL
 {
-	public interface IEntityService<TEntity, TId>
+	public abstract class EntityService<TEntity, TId>
 		where TEntity : Entity<TId>
 	{
-		TEntity Create(TEntity entity);
+		protected IEntityDAO<TEntity, TId> entityDAO;
 
-		TEntity Update(TEntity entity);
-
-		TEntity Delete(TEntity entity);
-
-		TEntity GetById(TId id);
-
-		TEntity GetAll(long limit, long offset);
+		public EntityService(IEntityDAO<TEntity, TId> entityDAO)
+		{
+			this.entityDAO = entityDAO;
+		}
 	}
 }

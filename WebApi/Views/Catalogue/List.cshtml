@@ -1,0 +1,20 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+@model List<Data.Item>;
+
+<div class="list-group">
+	@foreach (var item in Model)
+	{
+		<a href="#" class="list-group-item list-group-item-action">
+			<div class="list-group list-group-horizontal">
+				<img class="img-thumbnail" src="~/img/xtzwG4-Gt58.jpg" alt="doggo" width="350" height="200" />
+				<div class="container">
+					<h1>@item.Name</h1>
+					<label>@item.Description</label>
+				</div>
+			</div>
+		</a>
+	}
+</div>
