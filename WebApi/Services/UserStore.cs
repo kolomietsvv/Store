@@ -51,12 +51,12 @@ namespace WebApi.Services
 
 		public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
 		{
-			return Task.Run(() => userService.GetUser(user).Id.ToString());
+			return Task.Run(() => user.Id.ToString());
 		}
 
 		public Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken)
 		{
-			return Task.Run(() => userService.GetUser(user).Login);
+			return Task.Run(() => user.Login);
 		}
 
 		public Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)

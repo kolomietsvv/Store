@@ -13,7 +13,7 @@ namespace DAL.MSSQL
 
 		public Item Create(Item Item)
 		{
-			return base.ExecuteReaderSingle("CreateCatalogue", parameters =>
+			return base.ExecuteReaderSingle("CreateCatalogueItem", parameters =>
 			{
 				parameters.AddWithValue("@description", Item.Description);
 				parameters.AddWithValue("@imgUrl", Item.ImgUrl);
@@ -24,7 +24,7 @@ namespace DAL.MSSQL
 
 		public Item Delete(long id)
 		{
-			return base.ExecuteReaderSingle("Delete", parameters =>
+			return base.ExecuteReaderSingle("DeleteCatalogueItem", parameters =>
 			{
 				parameters.AddWithValue("@id", id);
 			});
@@ -41,7 +41,7 @@ namespace DAL.MSSQL
 
 		public Item GetById(long id)
 		{
-			return base.ExecuteReaderSingle("GetCatalogue", parameters =>
+			return base.ExecuteReaderSingle("GetCatalogueItem", parameters =>
 			{
 				parameters.AddWithValue("@id", id);
 			});
@@ -49,7 +49,7 @@ namespace DAL.MSSQL
 
 		public Item Update(Item Item)
 		{
-			return base.ExecuteReaderSingle("UpdateCatalogue", parameters =>
+			return base.ExecuteReaderSingle("UpdateCatalogueItem", parameters =>
 			{
 				parameters.AddWithValue("@description", Item.Description);
 				parameters.AddWithValue("@imgUrl", Item.ImgUrl);

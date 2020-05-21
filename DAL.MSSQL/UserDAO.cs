@@ -39,7 +39,7 @@ namespace DAL.MSSQL
 
 		public UserDTO GetById(long id)
 		{
-			return base.ExecuteReaderSingle("GetUsers", parameters =>
+			return base.ExecuteReaderSingle("GetUserById", parameters =>
 			{
 				parameters.AddWithValue("@id", id);
 			});

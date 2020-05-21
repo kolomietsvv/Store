@@ -1,0 +1,18 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+@model List<Data.Item>;
+
+<div class="list-group">
+	@foreach (var item in Model)
+	{
+		<form class="list-group list-group-horizontal">
+			<input type="image" class="img-thumbnail" src="~/img/xtzwG4-Gt58.jpg" alt="doggo" width="350" height="200" />
+			<div class="container">
+				<input type="text" asp-for="@item.Name" value="@item.Name">
+				<input type="text" asp-for="@item.Description" value="@item.Name">
+			</div>
+		</form>
+	}
+</div>

@@ -20,7 +20,6 @@ namespace Store.Controllers
 			_signInManager = signInManager;
 		}
 
-
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> SignIn(User user)
@@ -29,7 +28,7 @@ namespace Store.Controllers
 			return Redirect("/");
 		}
 
-		[HttpPost]
+		[HttpGet]
 		[Authorize]
 		public async Task<IActionResult> SignOut()
 		{
