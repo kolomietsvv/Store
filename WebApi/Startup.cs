@@ -31,6 +31,7 @@ namespace Store
 			DIConfigurator.ConfigureServices(services, connectionString);
 			services.AddSingleton<IUserStore<User>, UserStore>();
 			services.AddSingleton<IRoleStore<Role>, RoleStore>();
+			services.AddSingleton<IFileService, FileService>();
 			services.AddIdentity<User, Role>().AddDefaultTokenProviders();
 			services.AddControllersWithViews();
 		}

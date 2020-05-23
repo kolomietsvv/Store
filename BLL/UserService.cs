@@ -65,6 +65,11 @@ namespace BLL
 
 		private User GetUser(UserDTO userDTO)
 		{
+			if (userDTO is null)
+			{
+				return null;
+			}
+
 			return new User
 			{
 				Id = userDTO.Id,

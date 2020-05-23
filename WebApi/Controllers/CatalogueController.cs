@@ -2,6 +2,11 @@
 using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using WebApi.Models;
+using WebApi.Services;
 
 namespace Store.Controllers
 {
@@ -9,10 +14,12 @@ namespace Store.Controllers
 	public class CatalogueController : Controller
 	{
 		IEntityService<Item, long> catalogueService;
+		IFileService fileService;
 
-		public CatalogueController(IEntityService<Item, long> catalogueService)
+		public CatalogueController(IEntityService<Item, long> catalogueService, IFileService fileService)
 		{
 			this.catalogueService = catalogueService;
+			this.fileService = fileService;
 		}
 
 		[HttpGet]
@@ -24,7 +31,7 @@ namespace Store.Controllers
 			var result = catalogueService.GetAll(limit.Value, offset.Value);
 			if (User.Identity.IsAuthenticated)
 			{
-				return View("AdminList", result);
+				return View("AdminList", result.Select(i => new ItemViewModel(i)).ToList());
 			}
 			return View("List", result);
 		}
@@ -45,10 +52,12 @@ namespace Store.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Update(Item item)
+		public async Task<IActionResult> Update(ItemViewModel item)
 		{
-			var result = catalogueService.Update(item);
-			return View("List", result);
+			var imgUrl = await fileService.UploadFile(item.UploadedImage);
+			item.ImgUrl = imgUrl ?? item.ImgUrl;
+			catalogueService.Update(item);
+			return RedirectToAction("GetAll");
 		}
 
 		[HttpGet]
