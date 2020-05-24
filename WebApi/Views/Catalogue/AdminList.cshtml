@@ -4,28 +4,29 @@
 
 @model List<WebApi.Models.ItemViewModel>;
 
-<div class="list-group">
+<div class="list-group" id="list">
 	@foreach (var item in Model)
 	{
 		<form class="list-group list-group-horizontal" asp-controller="Catalogue" asp-action="Update" method="post" enctype="multipart/form-data">
 			<input type="hidden" asp-for="@item.Id" />
 			<input type="hidden" asp-for="@item.ImgUrl" />
 			<div class="form-group">
-				<img id='img-upload' width="400" height="332" src="@item.ImgUrl" />
-				<input type="file" id="imgInp" value="Upload image" asp-for="@item.UploadedImage">
+				<img width="400" height="332" src="@item.ImgUrl" class="img-upload" />
+				<input class="btn-file imgInp" type="file" value="Upload image" asp-for="@item.UploadedImage">
 			</div>
 			<div class="container list-group">
 				<input type="text" asp-for="@item.Name" value="@item.Name" class="form-control form-group" />
 				<textarea asp-for="@item.Description" value="@item.Description" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 278px;"></textarea>
 				<div class="flex-row ml-md-auto d-none d-md-flex">
 					<div class="list-group-horizontal">
-						<input type="submit" value="Update" class="btn btn-dark flex-grow-2" />
-						<a asp-controller="Catalogue" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger flex-grow-2">delete</a>
+						<input onclick="return confirm('Are you sure?')" type="submit" value="Update" class="btn btn-dark flex-grow-2" />
+						<a onclick="return confirm('Are you sure?')" asp-controller="Catalogue" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger flex-grow-2">delete</a>
 					</div>
 				</div>
 			</div>
 		</form>
 	}
+	<button type="button" class="btn btn-light btn-circle btn-xl position-fixed right-bottom-corner" onclick="addToList()">+</button>
 </div>
 
 @section Scripts {

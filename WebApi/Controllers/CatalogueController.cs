@@ -45,10 +45,12 @@ namespace Store.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create(Item item)
+		public async Task<IActionResult> Create(ItemViewModel item)
 		{
-			var result = catalogueService.Create(item);
-			return View("List", result);
+			var imgUrl = await fileService.UploadFile(item.UploadedImage);
+			item.ImgUrl = imgUrl ?? item.ImgUrl;
+			catalogueService.Create(item);
+			return RedirectToAction("GetAll");
 		}
 
 		[HttpPost]
