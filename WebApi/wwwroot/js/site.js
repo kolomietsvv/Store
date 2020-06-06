@@ -26,14 +26,17 @@ function removeFromList() {
 	}
 }
 
-function addToOrder(item) {
-	var node = document.querySelector("div[name='Order']");
-	var child = document.createElement('input');
-	var nexIndex = node.childNodes.length - 1;
-	child.name = "Order[" + nexIndex + "]";
-	child.value = item;
-	node.appendChild(child);
-
-	var label = document.querySelector("h4[name='itemsCount']");
-	label.innerHTML = node.childNodes.length;
+function addToOrder(id, src, name) {
+	var item = $("#" + id);
+	if (item.length != 0) {
+		var countItem = item.querySelector("input[name='count']");
+		countItem.value = countItem.value + 1;
+		return;
+	}
+	tempNode = document.querySelector("div[class='list-group list-group-horizontal order-item']").cloneNode(true); //true for deep clone
+	tempNode.id = id;
+	tempNode.querySelector("img").src = src;
+	tempNode.querySelector("h5").innerHTML = name;
+	$(".order-list").prepend(tempNode);
+	$("#" + id).removeAttr('hidden');
 }

@@ -148,3 +148,12 @@ body {
 	height: 300px;
 	padding: 10px;
 }
+
+.btn-delete {
+	margin-top: 6%;
+	margin-bottom: 6%;
+	padding-top: 2px;
+	border-radius: 25px;
+	border-radius: 25px;
+	float: right;
+}

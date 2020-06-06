@@ -13,7 +13,7 @@
 				<div class="list-group" style="margin-left: 5px; width: 40%">
 					<h3>@item.Name</h3>
 					<p>@item.Description</p>
-					<button type="button" class="btn btn-light btn-circle btn-md" onclick="addToOrder(@item.Id)" style="
+					<button type="button" class="btn btn-light btn-circle btn-md" onclick="addToOrder(@item.Id, '@item.ImgUrl', '@item.Name')" style="
 						 margin-top: 90%;
 						margin-left: 110%;">
 						🛒
@@ -31,11 +31,13 @@
 		<h4>🛒</h4>
 		<h4 name="itemsCount"></h4>
 	</div>
-	<div href="#" class="list-group-item-action list-group-item" style="padding: 2px;margin:5px;margin-left:0px;">
-		<div class="list-group list-group-horizontal" style="height:65px;">
+	<div href="#" class="list-group-item-action list-group-item order-list" style="padding: 2px;margin:5px;margin-left:0px;">
+		<div hidden="hidden" class="list-group list-group-horizontal order-item" style="height:65px;">
 			<img class="img-thumbnail" width="80" height="65" src="" />
-			<h5></h5>
-			<button type="button" class="btn btn-danger btn-sm" onclick="">🞩</button>
+			<h5 style="margin-top:5%;margin-right:5px"></h5>
+			<div style="width:100%"></div>
+			<input min="1" class="form-control" type="number" name="count" value="1" style="margin-top:6%;margin-right:5px;width:65px;float:right" />
+			<button type="button" class="btn btn-danger btn-sm btn-delete" onclick="">🞩</button>
 		</div>
 	</div>
 </form>
