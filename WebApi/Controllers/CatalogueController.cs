@@ -33,7 +33,7 @@ namespace Store.Controllers
 			{
 				return View("AdminList", result.Select(i => new ItemViewModel(i)).ToList());
 			}
-			return View("List", result);
+			return View("List", new CatalogueViewModel { Items = result });
 		}
 
 		[HttpGet]

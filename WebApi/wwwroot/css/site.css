@@ -1,6 +1,8 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+@import url('site.css');
+
 a.navbar-brand {
 	white-space: normal;
 	text-align: center;
@@ -53,18 +55,41 @@ button.accept-policy {
 	line-height: inherit;
 }
 
-.btn-circle.btn-xl {
-	width: 70px;
-	height: 70px;
-	padding: 10px 16px;
-	border-radius: 35px;
-	font-size: 12px;
+.btn-circle {
+	width: 25px;
+	height: 25px;
+	padding: 6px 0px;
+	border-radius: 12px;
 	text-align: center;
-	font-size: large;
-	border-style: groove;
-	border-color: Highlight;
-	border-width: 4px;
+	font-size: 14px;
+	line-height: 1.42857;
+	vertical-align: top;
 }
+
+	.btn-circle.btn-xl {
+		width: 70px;
+		height: 70px;
+		padding: 10px 16px;
+		border-radius: 35px;
+		font-size: 12px;
+		text-align: center;
+		font-size: large;
+		border-style: groove;
+		border-color: Highlight;
+		border-width: 4px;
+	}
+
+	.btn-circle.btn-md {
+		width: 50px;
+		height: 50px;
+		padding: 6px 0px;
+		border-radius: 25px;
+		text-align: center;
+		font-size: medium;
+		border-style: groove;
+		border-color: Highlight;
+		line-height: 1.42857;
+	}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -110,4 +135,16 @@ body {
 .right-bottom-corner {
 	margin-left: 45%;
 	bottom: 20px;
+}
+
+.order-card {
+	position: fixed;
+	margin-left: 45%;
+	top: 7.5%;
+	overflow: auto;
+	max-height: 300px;
+	max-width: 350px;
+	width: 350px;
+	height: 300px;
+	padding: 10px;
 }

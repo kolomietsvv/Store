@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace DAL.MSSQL
 {
@@ -40,6 +41,38 @@ namespace DAL.MSSQL
 				}
 			}
 			return result;
+		}
+
+		protected List<T> ExecuteReaderCollectionGrouping<TItem, TKey>(string storedProcedureName,
+			Action<SqlParameterCollection> parametersConfigurator,
+			Func<SqlDataReader, TItem> readItem,
+			Func<TItem, TKey> groupBy,
+			Func<IGrouping<TKey, TItem>, T> agregate)
+		{
+			if (readItem == null)
+			{
+				return null;
+			}
+			var result = new List<TItem>();
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				SqlDataReader reader = ExecuteStoredProcedure(parametersConfigurator, connection, storedProcedureName);
+				while (reader.Read())
+				{
+					result.Add(readItem(reader));
+				}
+			}
+			return result.GroupBy(groupBy).Select(agregate).ToList();
+		}
+
+		protected T ExecuteReaderGrouping<TItem, TKey>(string storedProcedureName,
+			Action<SqlParameterCollection> parametersConfigurator,
+			Func<SqlDataReader, TItem> readItem,
+			Func<TItem, TKey> groupBy,
+			Func<IGrouping<TKey, TItem>, T> agregate)
+		{
+			return ExecuteReaderCollectionGrouping(storedProcedureName,
+				parametersConfigurator, readItem, groupBy, agregate).First();
 		}
 
 		protected abstract T ReadEntity(SqlDataReader reader);

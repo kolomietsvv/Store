@@ -25,3 +25,15 @@ function removeFromList() {
 		$("#tmpForm").remove();
 	}
 }
+
+function addToOrder(item) {
+	var node = document.querySelector("div[name='Order']");
+	var child = document.createElement('input');
+	var nexIndex = node.childNodes.length - 1;
+	child.name = "Order[" + nexIndex + "]";
+	child.value = item;
+	node.appendChild(child);
+
+	var label = document.querySelector("h4[name='itemsCount']");
+	label.innerHTML = node.childNodes.length;
+}
