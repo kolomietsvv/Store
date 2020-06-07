@@ -15,7 +15,7 @@ function addToList() {
 	tempNode.querySelector("div[class='container list-group']").querySelector("textarea").value = "";
 	tempNode.querySelector("div[class='container list-group']").querySelector("div").querySelector("div").innerHTML =
 		"<input type='submit' value='Create' class='btn btn-success flex-grow-2' style='margin-right: 5px;' />" +
-		"<buttun onclick='removeElement(tmpForm)' type='submit' value='Delete' class='btn btn-danger flex-grow-2' >Delete</button>"
+		"<buttun onclick='removeElement(\"tmpForm\")' type='submit' value='Delete' class='btn btn-danger flex-grow-2' >Delete</button>"
 	$("#list").prepend(tempNode);
 	setImgPreview();
 }
