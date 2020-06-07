@@ -29,6 +29,12 @@ namespace Store.Controllers
 		}
 
 		[HttpGet]
+		public IActionResult SignIn()
+		{
+			return View("Login");
+		}
+
+		[HttpGet]
 		[Authorize]
 		public async Task<IActionResult> SignOut()
 		{

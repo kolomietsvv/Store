@@ -1,21 +1,4 @@
 ﻿@{
-	ViewData["Title"] = "Home Page";
+	ViewData["Class"] = "bg";
+	ViewData["Title"] = "Welcome";
 }
-
-@model Data.User;
-
-<h1 class="display-4 text-center">Welcome</h1>
-<form asp-controller="Home" asp-action="SignIn" asp-antiforgery="true">
-	<div class="form-group">
-		<label for="login">Login</label>
-		<input type="text" class="form-control" id="login" aria-describedby="loginHelp" placeholder="Login" asp-for="Login">
-		<small id="loginHelp" class="form-text text-muted">Enter your login</small>
-	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" class="form-control" id="password" placeholder="Password" asp-for="Password">
-	</div>
-	<div class="justify-content-end">
-		<button type="submit" class="btn btn-primary">Sign in</button>
-	</div>
-</form>

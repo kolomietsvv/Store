@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="~/css/site.css" />
 	@RenderSection("Head", required: false)
 </head>
-<body>
+<body class="@ViewData["Class"]">
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 			<div class="container">
@@ -24,20 +24,18 @@
 						</li>
 					</ul>
 				</div>
-				@if (User.Identity.IsAuthenticated)
-				{
-					<div class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-						<ul class="navbar-nav flex-grow-2">
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignOut">Sign out</a>
-							</li>
-						</ul>
-					</div>
-				}
+
 				<div class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 					<ul class="navbar-nav flex-grow-2">
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">Sign up</a>
+							@if (User.Identity.IsAuthenticated)
+							{
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignOut">Sign out</a>
+							}
+							else
+							{
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignIn">Sign in</a>
+							}
 						</li>
 					</ul>
 				</div>
