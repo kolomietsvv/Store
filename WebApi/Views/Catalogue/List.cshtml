@@ -8,13 +8,13 @@
 	@foreach (var item in Model.Items)
 	{
 		<div href="#" class="list-group-item-action list-group-item" style="padding: 2px">
-			<div class="list-group list-group-horizontal" style="padding: 2px">
-				<img class="img-thumbnail" style="resize: none;" width="350" height="300" src="@item.ImgUrl" />
+			<div class="list-group list-group-horizontal" style="padding:2px;resize:none;width:760px;height:400px;">
+				<img class="img-thumbnail" src="@item.ImgUrl" width="350" height="300" />
 				<div class="list-group" style="margin-left: 5px; width: 40%">
 					<h3>@item.Name</h3>
 					<p>@item.Description</p>
 					<button type="button" class="btn btn-light btn-circle btn-md" onclick="addToOrder(@item.Id, '@item.ImgUrl', '@item.Name')" style="
-						 margin-top: 90%;
+						 margin-top: 40%;
 						margin-left: 110%;">
 						🛒
 					</button>
