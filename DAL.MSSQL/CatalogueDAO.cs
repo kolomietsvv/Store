@@ -1,11 +1,13 @@
 ﻿using DAL.Contracts;
 using Data;
+using Microsoft.SqlServer.Server;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL.MSSQL
 {
-	public class CatalogueDAO : EntityDAO<Item>, IEntityDAO<Item, long>
+	public class CatalogueDAO : EntityDAO<Item>, ICatalogueDAO
 	{
 		public CatalogueDAO(string connectionString) : base(connectionString)
 		{
@@ -47,6 +49,15 @@ namespace DAL.MSSQL
 			});
 		}
 
+		public List<Item> GetByIds(IEnumerable<long> ids)
+		{
+			return base.ExecuteReaderCollection("GetCatalogueByIds", parameters =>
+			{
+				var sqlParam = parameters.AddWithValue("@ids", new BigIntCollection(ids));
+				sqlParam.SqlDbType = SqlDbType.Structured;
+			});
+		}
+
 		public Item Update(Item Item)
 		{
 			return base.ExecuteReaderSingle("UpdateCatalogueItem", parameters =>
@@ -70,5 +81,24 @@ namespace DAL.MSSQL
 				Price = (decimal)reader["price"],
 			};
 		}
+
+		private class BigIntCollection : List<long>, IEnumerable<SqlDataRecord>
+		{
+			public BigIntCollection(IEnumerable<long> items) : base(items)
+			{ }
+
+			IEnumerator<SqlDataRecord> IEnumerable<SqlDataRecord>.GetEnumerator()
+			{
+				SqlDataRecord ret = new SqlDataRecord(
+					new SqlMetaData("item", SqlDbType.BigInt));
+
+				foreach (var item in this)
+				{
+					ret.SetInt64(0, item);
+					yield return ret;
+				}
+			}
+		}
+
 	}
 }

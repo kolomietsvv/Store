@@ -1,0 +1,48 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+@model WebApi.Models.OrderViewModel;
+
+<div class="list-group">
+	@foreach (var item in Model.Items)
+	{
+		<div href="#" class="list-group-item-action list-group-item" style="padding: 2px">
+			<div class="list-group list-group-horizontal" style="padding:2px;resize:none;width:760px;height:400px;">
+				<img class="img-thumbnail" src="@item.ImgUrl" width="350" height="300" />
+				<div class="list-group" style="margin-left: 5px; width: 40%">
+					<h3>@item.Name</h3>
+					<p>@item.Description</p>
+					<button type="button" class="btn btn-light btn-circle btn-md" onclick="addToOrder(@item.Id, '@item.ImgUrl', '@item.Name')" style="
+						position:absolute;bottom:10px;
+						margin-left: 45%;">
+						🛒
+					</button>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+
+<form asp-controller="Order" asp-action="Create" method="post" class="card order-card">
+	<div class="list-group list-group-horizontal">
+		<input type="submit" class="btn btn-success btn-md" value="Confirm" />
+		<h4>🛒</h4>
+		<h4 name="itemsCount"></h4>
+	</div>
+	<div class="form-group">
+		<label for="Name">Name</label>
+		<input type="text" class="form-control" id="Name" aria-describedby="NameHelp" placeholder="Name" asp-for="@Model.User Name">
+		<small id="NameHelp" class="form-text text-muted">Enter your Name</small>
+	</div>
+	<div class="form-group">
+		<label for="Phone">Phone</label>
+		<input type="text" class="form-control" id="Phone" aria-describedby="PhoneHelp" placeholder="Phone" asp-for="@Model.User Phone">
+		<small id="PhoneHelp" class="form-text text-muted">Enter your Phone</small>
+	</div>
+	<div class="form-group">
+		<label for="Email">Email</label>
+		<input type="text" class="form-control" id="Email" aria-describedby="EmailHelp" placeholder="Email" asp-for="@Model.User Email">
+		<small id="EmailHelp" class="form-text text-muted">Enter your Email</small>
+	</div>
+</form>

@@ -2,10 +2,10 @@
 
 namespace Data
 {
-	public class Order
+	public class Order : Entity<long>
 	{
-		public User User { get; set; }
+		public long? UserId { get; set; }
 
-		public List<Item> Items { get; set; }
+		public List<OrderItem> Items { get; set; }
 	}
 }

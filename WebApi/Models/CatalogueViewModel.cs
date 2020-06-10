@@ -9,6 +9,6 @@ namespace WebApi.Models
 
 		public long? UserId { get; set; }
 
-		public List<long> Order { get; set; } = new List<long>();
+		public Order Order { get; set; }
 	}
 }

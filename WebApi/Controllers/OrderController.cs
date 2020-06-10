@@ -1,14 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApi.Models;
+﻿using BLL;
+using Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
 	public class OrderController : Controller
 	{
-		[HttpPost]
-		public IActionResult Create(CatalogueViewModel catalogue)
+		IEntityService<Order, long> orederService;
+
+		public OrderController(IEntityService<Order, long> orederService)
 		{
-			return View();
+			this.orederService = orederService;
+		}
+
+		[HttpPost]
+		public IActionResult Create(Order order)
+		{
+			var createdOrder = orederService.Create(order);
+			return null;
 		}
 	}
 }

@@ -10,8 +10,10 @@ namespace BLL
 		public static void ConfigureServices(IServiceCollection services, string connectionString)
 		{
 			services.AddSingleton<IUserDAO>(new UserDAO(connectionString));
-			services.AddSingleton<IEntityDAO<Item, long>>(new CatalogueDAO(connectionString));
-			services.AddSingleton<IEntityService<Item, long>, CatalogueService>();
+			services.AddSingleton<ICatalogueDAO>(new CatalogueDAO(connectionString));
+			services.AddSingleton<IEntityDAO<Order, long>>(new OrderDAO(connectionString));
+			services.AddSingleton<IEntityService<Order, long>, OrderService>();
+			services.AddSingleton<ICatalogueService, CatalogueService>();
 			services.AddSingleton<IUserService, UserService>();
 		}
 	}

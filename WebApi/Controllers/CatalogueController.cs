@@ -2,7 +2,6 @@
 using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Models;
@@ -13,13 +12,17 @@ namespace Store.Controllers
 	[Authorize]
 	public class CatalogueController : Controller
 	{
-		IEntityService<Item, long> catalogueService;
+		ICatalogueService catalogueService;
 		IFileService fileService;
+		IUserService userService;
 
-		public CatalogueController(IEntityService<Item, long> catalogueService, IFileService fileService)
+		public CatalogueController(ICatalogueService catalogueService,
+			IFileService fileService,
+			IUserService userService)
 		{
 			this.catalogueService = catalogueService;
 			this.fileService = fileService;
+			this.userService = userService;
 		}
 
 		[HttpGet]
@@ -33,7 +36,7 @@ namespace Store.Controllers
 			{
 				return View("AdminList", result.Select(i => new ItemViewModel(i)).ToList());
 			}
-			return View("List", new CatalogueViewModel { Items = result });
+			return View("List", new CatalogueViewModel { Items = result, Order = new Order { } });
 		}
 
 		[HttpGet]
@@ -67,6 +70,26 @@ namespace Store.Controllers
 		{
 			catalogueService.Delete(id);
 			return RedirectToAction("GetAll");
+		}
+
+		[HttpPost]
+		[AllowAnonymous]
+		public IActionResult Checkout(Order order)
+		{
+			if (order?.Items?.Any() != true)
+			{
+				return RedirectToAction("GetAll");
+			}
+			var items = catalogueService.GetByIds(order.Items.Select(item => item.Id));
+			var user = order.UserId.HasValue ? userService.GetById(order.UserId.Value) : null;
+			var orderViewModel = new OrderViewModel()
+			{
+				Items = items
+					.Join(order.Items, i => i.Id, i => i.Id, (item, order) => new OrderItemViewModel(item, order.Count))
+					.ToList(),
+				User = user
+			};
+			return View("Order", orderViewModel);
 		}
 	}
 }

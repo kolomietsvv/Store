@@ -6,7 +6,7 @@ namespace BLL
 	public abstract class EntityService<TEntity, TId>
 		where TEntity : Entity<TId>
 	{
-		protected IEntityDAO<TEntity, TId> entityDAO;
+		protected readonly IEntityDAO<TEntity, TId> entityDAO;
 
 		public EntityService(IEntityDAO<TEntity, TId> entityDAO)
 		{

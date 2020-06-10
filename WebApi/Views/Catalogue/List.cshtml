@@ -14,8 +14,8 @@
 					<h3>@item.Name</h3>
 					<p>@item.Description</p>
 					<button type="button" class="btn btn-light btn-circle btn-md" onclick="addToOrder(@item.Id, '@item.ImgUrl', '@item.Name')" style="
-						 margin-top: 40%;
-						margin-left: 110%;">
+						position:absolute;bottom:10px;
+						margin-left: 45%;">
 						🛒
 					</button>
 				</div>
@@ -24,19 +24,21 @@
 	}
 </div>
 
-<form asp-controller="Order" asp-action="Create" method="post" class="card order-card">
+<form asp-controller="Catalogue" asp-action="Checkout" method="post" class="card order-card">
 	<input type="hidden" asp-for="@Model.UserId" />
 	<div class="list-group list-group-horizontal">
 		<input type="submit" class="btn btn-info btn-md" value="Checkout" />
 		<h4>🛒</h4>
 		<h4 name="itemsCount"></h4>
 	</div>
+	<input hidden name="Order.UserId" value="1" />
 	<div href="#" class="list-group-item-action list-group-item order-list" style="padding: 2px;margin:5px;margin-left:0px;">
 		<div hidden="hidden" class="list-group list-group-horizontal order-item" style="height:65px;">
 			<img class="img-thumbnail" width="80" height="65" src="" />
 			<h5 style="margin-top:5%;margin-right:5px"></h5>
 			<div style="width:100%"></div>
-			<input min="1" class="form-control" type="number" name="count" value="1" style="margin-top:6%;margin-right:5px;width:65px;float:right" />
+			<input min="1" class="form-control count" type="number" value="1" style="margin-top:6%;margin-right:5px;width:65px;float:right" />
+			<input hidden class="item" />
 			<button type="button" class="btn btn-danger btn-sm btn-delete" onclick="">🞩</button>
 		</div>
 	</div>

@@ -30,7 +30,7 @@ function addToOrder(id, src, name) {
 	var idSelector = "#" + id;
 	var item = document.querySelector("[id='" + id + "']");
 	if (item != null) {
-		var countItem = item.querySelector("input[name='count']");
+		var countItem = item.querySelector("input[class='form-control count']");
 		countItem.value = parseInt(countItem.value) + 1;
 		return;
 	}
@@ -38,10 +38,20 @@ function addToOrder(id, src, name) {
 	tempNode.id = id;
 	tempNode.querySelector("img").src = src;
 	tempNode.querySelector("h5").innerHTML = name;
-	tempNode.querySelector("input[name='count']").value = 1;
 	tempNode.querySelector("button").onclick = function () {
 		removeElement(id);
 	}
+
+	var index = document.querySelector("div[class='list-group-item-action list-group-item order-list']").childElementCount - 1;
+
+	var itemInput = tempNode.querySelector("input[class='item']");
+	itemInput.name = 'Order.Items[' + index + '].Id';
+	itemInput.value = id;
+
+	var countInput = tempNode.querySelector("input[class='form-control count']");
+	countInput.name = 'Order.Items[' + index + '].Count';
+	countInput.value = 1;
+
 	$(".order-list").prepend(tempNode);
 	$(idSelector).removeAttr('hidden');
 }

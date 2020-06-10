@@ -4,10 +4,13 @@ using System.Collections.Generic;
 
 namespace BLL
 {
-	public class CatalogueService : EntityService<Item, long>, IEntityService<Item, long>
+	public class CatalogueService : EntityService<Item, long>, ICatalogueService
 	{
-		public CatalogueService(IEntityDAO<Item, long> catalogueDAO) : base(catalogueDAO)
+		private readonly ICatalogueDAO catalogueDAO;
+
+		public CatalogueService(ICatalogueDAO catalogueDAO) : base(catalogueDAO)
 		{
+			this.catalogueDAO = entityDAO as ICatalogueDAO;
 		}
 
 		public Item Create(Item entity)
@@ -33,6 +36,11 @@ namespace BLL
 		public Item Update(Item entity)
 		{
 			return entityDAO.Update(entity);
+		}
+
+		public List<Item> GetByIds(IEnumerable<long> ids)
+		{
+			return catalogueDAO.GetByIds(ids);
 		}
 	}
 }
