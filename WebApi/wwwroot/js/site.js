@@ -26,8 +26,16 @@ function removeElement(id) {
 	}
 }
 
-function addToOrder(id, src, name) {
+function addToOrder(id, src, name, price) {
 	var idSelector = "#" + id;
+
+	tempNode = document.querySelector("h4[name='fullPrice']");
+	lastPrice = parseInt(tempNode.innerHTML)
+	if (isNaN(lastPrice)) {
+		lastPrice = 0;
+	}
+	tempNode.innerHTML = lastPrice + price;
+
 	var item = document.querySelector("[id='" + id + "']");
 	if (item != null) {
 		var countItem = item.querySelector("input[class='form-control count']");

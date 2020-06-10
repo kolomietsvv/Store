@@ -13,11 +13,13 @@
 				<div class="list-group" style="margin-left: 5px; width: 40%">
 					<h3>@item.Name</h3>
 					<p>@item.Description</p>
-					<button type="button" class="btn btn-light btn-circle btn-md" onclick="addToOrder(@item.Id, '@item.ImgUrl', '@item.Name')" style="
-						position:absolute;bottom:10px;
-						margin-left: 45%;">
-						🛒
-					</button>
+					<div class="card-footer list-group list-group-horizontal" style="position:absolute;bottom:10px;width:400px;padding-right:5px">
+						<h3>@item.Price₽</h3>
+						<button type="button" class="btn btn-light btn-circle btn-md"
+								onclick="addToOrder(@item.Id, '@item.ImgUrl', '@item.Name', @item.Price)" style="position:inherit;right:10px;">
+							🛒
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -28,7 +30,7 @@
 	<div class="list-group list-group-horizontal">
 		<input type="submit" class="btn btn-success btn-md" value="Confirm" />
 		<h4>🛒</h4>
-		<h4 name="itemsCount"></h4>
+		<h4 name="fullPrice"></h4>
 	</div>
 	<div class="form-group">
 		<label for="Name">Name</label>
