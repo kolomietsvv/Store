@@ -22,6 +22,15 @@ function addToList() {
 
 function removeElement(id) {
 	if (confirm("Are you sure?")) {
+		var item = document.querySelector("[id='" + id + "']")
+			.parentNode;
+		var priceNode = item.querySelector("input[name='price']");
+		if (priceNode != null) {
+			var fullPriceNode = item.parentNode.querySelector("h4[name='fullPrice']");
+			if (fullPriceNode != null) {
+				fullPriceNode.innerHTML = parseInt(fullPriceNode.innerHTML) - parseInt(priceNode.value);
+			}
+		}
 		$("#" + id).remove();
 	}
 }
@@ -55,6 +64,9 @@ function addToOrder(id, src, name, price) {
 	var itemInput = tempNode.querySelector("input[class='item']");
 	itemInput.name = 'Order.Items[' + index + '].Id';
 	itemInput.value = id;
+
+	var priceInput = tempNode.querySelector("input[name='price']");
+	priceInput.value = price;
 
 	var countInput = tempNode.querySelector("input[class='form-control count']");
 	countInput.name = 'Order.Items[' + index + '].Count';
