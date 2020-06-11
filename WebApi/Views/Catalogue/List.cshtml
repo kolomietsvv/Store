@@ -34,12 +34,14 @@
 		<h4 name="fullPrice"></h4><h4>₽</h4>
 	</div>
 	<input hidden name="Order.UserId" value="1" />
-	<div href="#" class="list-group-item-action list-group-item order-list" style="padding: 2px;margin:5px;margin-left:0px;">
+	<div href="#" class="list-group-item-action list-group-item order-list" name="orderList"
+		 style="padding: 2px;margin:5px;margin-left:0px;">
 		<div hidden="hidden" class="list-group list-group-horizontal order-item" style="height:65px;">
 			<img class="img-thumbnail" width="80" height="65" src="" />
 			<h5 style="margin-top:5%;margin-right:5px"></h5>
 			<div style="width:100%"></div>
-			<input min="1" class="form-control count" type="number" value="1" style="margin-top:6%;margin-right:5px;width:65px;float:right" />
+			<input min="1" class="form-control count" type="number" value="1"
+				   style="margin-top:6%;margin-right:5px;width:65px;float:right" />
 			<input hidden class="item" />
 			<input hidden name="price" />
 			<button type="button" class="btn btn-danger btn-sm btn-delete" onclick="">🞩</button>
