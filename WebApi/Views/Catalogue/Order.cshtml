@@ -15,6 +15,8 @@
 					<p>@item.Description</p>
 					<div class="card-footer list-group list-group-horizontal" style="position:absolute;bottom:10px;width:400px;padding-right:5px">
 						<h3>@item.Price₽</h3>
+						<h3 style="margin-left:15px; margin-right:15px"> 🞩 </h3>
+						<input min="1" class="form-control count" type="number" value="@item.Count" style="width:70px" />
 						<button type="button" class="btn btn-danger btn-circle btn-md"
 								onclick="removeElement(@item.Id)" style="position:inherit;right:10px;">
 							🞩
