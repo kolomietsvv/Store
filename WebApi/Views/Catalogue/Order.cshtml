@@ -7,7 +7,7 @@
 <div class="list-group">
 	@foreach (var item in Model.Items)
 	{
-		<div href="#" class="list-group-item-action list-group-item" style="padding: 2px">
+		<div id="@item.Id" href="#" class="list-group-item-action list-group-item" style="padding: 2px">
 			<div class="list-group list-group-horizontal" style="padding:2px;resize:none;width:760px;height:400px;">
 				<img class="img-thumbnail" src="@item.ImgUrl" width="350" height="300" />
 				<div class="list-group" style="margin-left: 5px; width: 40%">
@@ -15,9 +15,9 @@
 					<p>@item.Description</p>
 					<div class="card-footer list-group list-group-horizontal" style="position:absolute;bottom:10px;width:400px;padding-right:5px">
 						<h3>@item.Price₽</h3>
-						<button type="button" class="btn btn-light btn-circle btn-md"
-								onclick="addToOrder(@item.Id, '@item.ImgUrl', '@item.Name', @item.Price)" style="position:inherit;right:10px;">
-							🛒
+						<button type="button" class="btn btn-danger btn-circle btn-md"
+								onclick="removeElement(@item.Id)" style="position:inherit;right:10px;">
+							🞩
 						</button>
 					</div>
 				</div>
