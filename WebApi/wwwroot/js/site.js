@@ -36,13 +36,18 @@ function removeElement(id) {
 	}
 }
 
-function recalcFullPrie(id) {
-	var item = document.querySelector("div[id='" + id + "']").parentNode;
-	var countItem = item.querySelector("input[class='form-control count']");
+function recalcFullPrie() {
+	var items = document.querySelector("div[name='orderList']").children
+	var fullPrice = 0;
+	for (var i = 0; i < items.length; i++) {
+		var countItem = items[i].querySelector("input[class='form-control count']");
+		var priceItem = items[i].querySelector("input[name='price']");
+		var count = parseInt(countItem.value);
+		var price = parseInt(priceItem.value);
+		fullPrice = fullPrice + count * price;
+	}
 	var fullPriceItem = document.querySelector("h4[name='fullPrice']");
-
-	var count = parseInt(countItem.value);
-	fullPriceItem.innerHTML = price * count;
+	fullPriceItem.innerHTML = fullPrice;
 }
 
 function addToOrder(id, src, name, price) {
@@ -82,7 +87,7 @@ function addToOrder(id, src, name, price) {
 	countInput.name = 'Order.Items[' + index + '].Count';
 	countInput.value = 1;
 	countInput.onchange = function () {
-		recalcFullPrie(id);
+		recalcFullPrie();
 	}
 
 	$(".order-list").prepend(tempNode);
