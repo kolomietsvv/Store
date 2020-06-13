@@ -17,6 +17,9 @@ namespace DAL.MSSQL
 			{
 				parameters.AddWithValue("@login", UserDTO.Login);
 				parameters.AddWithValue("@password", UserDTO.PasswordHash);
+				parameters.AddWithValue("@name", UserDTO.Name);
+				parameters.AddWithValue("@email", UserDTO.Email);
+				parameters.AddWithValue("@phone", UserDTO.Phone);
 			});
 		}
 
@@ -52,6 +55,9 @@ namespace DAL.MSSQL
 				parameters.AddWithValue("@id", UserDTO.Id);
 				parameters.AddWithValue("@login", UserDTO.Login);
 				parameters.AddWithValue("@password", UserDTO.PasswordHash);
+				parameters.AddWithValue("@name", UserDTO.Name);
+				parameters.AddWithValue("@email", UserDTO.Email);
+				parameters.AddWithValue("@phone", UserDTO.Phone);
 			});
 		}
 
@@ -61,6 +67,9 @@ namespace DAL.MSSQL
 			{
 				parameters.AddWithValue("@login", UserDTO.Login);
 				parameters.AddWithValue("@password", UserDTO.PasswordHash);
+				parameters.AddWithValue("@name", UserDTO.Name);
+				parameters.AddWithValue("@email", UserDTO.Email);
+				parameters.AddWithValue("@phone", UserDTO.Phone);
 			});
 		}
 
@@ -69,8 +78,11 @@ namespace DAL.MSSQL
 			return new UserDTO
 			{
 				Id = (long)reader["id"],
-				Login = (string)reader["login"],
-				PasswordHash = (byte[])reader["password"],
+				Login = reader["login"] as string,
+				PasswordHash = reader["password"] as byte[],
+				Email = reader["email"] as string,
+				Name = reader["name"] as string,
+				Phone = reader["phone"] as string,
 			};
 		}
 	}

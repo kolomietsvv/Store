@@ -43,7 +43,13 @@ namespace BLL
 
 		public User GetUser(User user)
 		{
-			var userDTO = GetUserDTO(user);
+			UserDTO userDTO;
+			if (user.Id != default)
+			{
+				userDTO = userDAO.GetById(user.Id);
+				return GetUser(userDTO);
+			}
+			userDTO = GetUserDTO(user);
 			userDTO = userDAO.GetUser(userDTO);
 			return GetUser(userDTO);
 		}
@@ -59,7 +65,11 @@ namespace BLL
 			{
 				Id = user.Id,
 				Login = user.Login,
-				PasswordHash = sha256.ComputeHash(Encoding.Unicode.GetBytes(user.Password)),
+				PasswordHash = user.Password is null ? null :
+					sha256.ComputeHash(Encoding.Unicode.GetBytes(user.Password)),
+				Email = user.Email,
+				Name = user.Name,
+				Phone = user.Phone,
 			};
 		}
 

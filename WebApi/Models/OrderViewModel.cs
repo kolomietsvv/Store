@@ -7,7 +7,6 @@ namespace WebApi.Models
 	{
 		public List<OrderItemViewModel> Items { get; set; }
 
-
 		public User User { get; set; }
 	}
 }
