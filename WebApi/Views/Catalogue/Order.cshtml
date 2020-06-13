@@ -3,7 +3,7 @@
 }
 
 @model WebApi.Models.OrderViewModel;
-<form asp-controller="Order" asp-action="Create" method="post">
+<form asp-controller="Order" asp-action="Create" method="post" onsubmit="return alert('Your order is sent to server')">
 	<div class="list-group">
 		@for (int i = 0; i < Model.Items.Count; i++)
 		{
@@ -30,23 +30,23 @@
 	</div>
 	<div class="card order-card" style="height:400px;max-height:400px;">
 		<div class="list-group list-group-horizontal">
-			<input type="submit" onclick="return alert('Your order is sent to server')" class="btn btn-success btn-md" value="Confirm" />
+			<input type="submit" class="btn btn-success btn-md" value="Confirm" />
 			<h4>🛒</h4>
 			<h4 name="fullPrice">@Model.Items.Sum(item => item.Price * item.Count)</h4><h4>₽</h4>
 		</div>
 		<div class="form-group">
 			<label for="Name">Name</label>
-			<input type="text" class="form-control" id="Name" aria-describedby="NameHelp" placeholder="Name" asp-for="@Model.User.Name">
+			<input type="text" class="form-control" id="Name" aria-describedby="NameHelp" placeholder="Name" asp-for="@Model.User.Name" required>
 			<small id="NameHelp" class="form-text text-muted">Enter your Name</small>
 		</div>
 		<div class="form-group">
 			<label for="Phone">Phone</label>
-			<input type="text" class="form-control" id="Phone" aria-describedby="PhoneHelp" placeholder="Phone" asp-for="@Model.User.Phone">
+			<input type="text" class="form-control" id="Phone" aria-describedby="PhoneHelp" placeholder="Phone" asp-for="@Model.User.Phone" required>
 			<small id="PhoneHelp" class="form-text text-muted">Enter your Phone</small>
 		</div>
 		<div class="form-group">
 			<label for="Email">Email</label>
-			<input type="text" class="form-control" id="Email" aria-describedby="EmailHelp" placeholder="Email" asp-for="@Model.User.Email">
+			<input type="text" class="form-control" id="Email" aria-describedby="EmailHelp" placeholder="Email" asp-for="@Model.User.Email" required>
 			<small id="EmailHelp" class="form-text text-muted">Enter your Email</small>
 		</div>
 	</div>
