@@ -22,20 +22,7 @@ namespace DAL.MSSQL
 				var sqlParam = parameters.AddWithValue("@items", new OrderDataCollection(order));
 				sqlParam.SqlDbType = SqlDbType.Structured;
 			},
-			reader =>
-				new OrderItem
-				{
-					Id = (long)reader["orderNumber"],
-					UserId = (long)reader["userId"],
-					ItemId = (long)reader["itemId"],
-					Count = (long)reader["count"]
-				},
-			item => item.UserId,
-			group => new Order
-			{
-				UserId = group.Key,
-				Items = group.Select(g => new Data.OrderItem { Id = g.ItemId, Count = g.Count }).ToList()
-			});
+			GetOrder, item => item.User.Id, OrdersByUser);
 		}
 
 		public Order Delete(long entity)
@@ -45,7 +32,12 @@ namespace DAL.MSSQL
 
 		public List<Order> GetAll(long limit, long offset)
 		{
-			throw new System.NotImplementedException();
+			return ExecuteReaderCollectionGrouping("GetOrders", parameters =>
+			{
+				parameters.AddWithValue("@limit", limit);
+				parameters.AddWithValue("@offset", offset);
+			},
+			GetOrder, item => item.Id, OrdersById);
 		}
 
 		public Order GetById(long id)
@@ -60,25 +52,60 @@ namespace DAL.MSSQL
 
 		protected override Order ReadEntity(SqlDataReader reader)
 		{
-			return new Order { };
+			throw new System.NotImplementedException();
 		}
 
-		private class OrderItem
+		private Order GetOrder(SqlDataReader reader)
 		{
-			public long Id { get; set; }
+			return new Order
+			{
+				Id = (long)reader["orderNumber"],
+				User = new User
+				{
+					Id = (long)reader["userId"],
+					Email = (string)reader["userEmail"],
+					Name = (string)reader["userName"],
+					Phone = (string)reader["userPhone"],
+				},
+				Items = new List<OrderItem>
+				{
+					new OrderItem
+					{
+						Id = (long)reader["itemId"],
+						Name = (string)reader["itemName"],
+						ImgUrl = (string)reader["itemImgUrl"],
+						Price = (decimal)reader["itemPrice"],
+						Count = (long)reader["itemCount"],
+					}
+				},
+			};
+		}
 
-			public long UserId { get; set; }
+		private Order OrdersByUser(IGrouping<long, Order> group)
+		{
+			return new Order
+			{
+				Id = group.FirstOrDefault()?.Id ?? default,
+				User = group.FirstOrDefault().User,
+				Items = group.Select(g => g.Items.First()).ToList()
+			};
+		}
 
-			public long ItemId { get; set; }
-
-			public long Count { get; set; }
+		private Order OrdersById(IGrouping<long, Order> group)
+		{
+			return new Order
+			{
+				Id = group.Key,
+				User = group.FirstOrDefault().User,
+				Items = group.Select(g => g.Items.First()).ToList()
+			};
 		}
 
 		private class OrderDataCollection : Order, IEnumerable<SqlDataRecord>
 		{
 			public OrderDataCollection(Order order)
 			{
-				UserId = order.UserId;
+				User = order.User;
 				Items = order.Items;
 			}
 
@@ -97,7 +124,7 @@ namespace DAL.MSSQL
 
 				foreach (var item in Items)
 				{
-					ret.SetInt64(0, UserId.Value);
+					ret.SetInt64(0, User.Id);
 					ret.SetInt64(1, item.Id);
 					ret.SetInt64(2, item.Count);
 					yield return ret;

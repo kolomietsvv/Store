@@ -81,7 +81,7 @@ namespace Store.Controllers
 				return RedirectToAction("GetAll");
 			}
 			var items = catalogueService.GetByIds(order.Items.Select(item => item.Id));
-			var user = order.UserId.HasValue ? userService.GetById(order.UserId.Value) : null;
+			var user = (order.User?.Id).HasValue ? userService.GetById(order.User.Id) : null;
 			var orderViewModel = new OrderViewModel()
 			{
 				Items = items
@@ -89,7 +89,7 @@ namespace Store.Controllers
 					.ToList(),
 				User = user
 			};
-			return View("Order", orderViewModel);
+			return View("../Order/Order", orderViewModel);
 		}
 	}
 }

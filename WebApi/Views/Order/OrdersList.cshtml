@@ -1,0 +1,41 @@
+﻿@{
+	ViewData["Title"] = "Orders";
+}
+
+@model List<Data.Order>;
+
+<div class="list-group">
+	@for (int i = 0; i < Model.Count; i++)
+	{
+		<div class="list-group-item" style="padding: 2px">
+			<form asp-controller="Catalogue" asp-action="Checkout" method="post" class="card order-card" style="
+						position: unset;
+						margin-left: 1px;
+						">
+				<input type="hidden" asp-for="@Model[i].User.Name" />
+				<div class="list-group list-group-horizontal">
+					<input type="submit" class="btn btn-info btn-md" value="Checkout" />
+					<h4>🛒</h4>
+					<h4 name="fullPrice"></h4>@Model[i].Items.Sum(item => item.Count * item.Price)<h4>₽</h4>
+				</div>
+				<input hidden asp-for="@Model[i].User.Id" />
+				<div href="#" class="list-group-item-action list-group-item order-list" name="orderList"
+					 style="padding: 2px;margin:5px;margin-left:0px;">
+					@for (int j = 0; j < Model[i].Items.Count; j++)
+					{
+						<div class="list-group list-group-horizontal order-item" style="height:65px;">
+							<img class="img-thumbnail" width="80" height="65" src="@Model[i].Items[j].ImgUrl" />
+							<h5 style="margin-top:5%;margin-right:5px">@Model[i].Items[j].Name</h5>
+							<div style="width:100%"></div>
+							<input min="1" class="form-control count" type="number" value="@Model[i].Items[j].Count"
+								   style="margin-top:6%;margin-right:5px;width:65px;float:right" />
+							<input hidden asp-for="@Model[i].Items[j].Id" class="item" />
+							<input hidden name="price" value="@Model[i].Items[j].Price" />
+							<button type="button" class="btn btn-danger btn-sm btn-delete" onclick="">🞩</button>
+						</div>
+					}
+				</div>
+			</form>
+		</div>
+	}
+</div>

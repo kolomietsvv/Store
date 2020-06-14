@@ -20,7 +20,7 @@ namespace WebApi.Controllers
 		[HttpPost]
 		public IActionResult Create(OrderViewModel orderVM)
 		{
-			var userId = userService.GetUser(orderVM.User)?.Id ?? userService.Create(orderVM.User).Id;
+			var user = userService.GetUser(orderVM.User) ?? userService.Create(orderVM.User);
 			var order = new Order
 			{
 				Items = orderVM.Items.Select(item => new OrderItem
@@ -28,10 +28,19 @@ namespace WebApi.Controllers
 					Count = item.Count,
 					Id = item.Id
 				}).ToList(),
-				UserId = userId
+				User = user,
 			};
 			var createdOrder = orederService.Create(order);
 			return RedirectToAction("GetAll", "Catalogue");
+		}
+
+		[HttpGet]
+		public IActionResult GetAll(long? limit, long? offset)
+		{
+			limit ??= long.MaxValue;
+			offset ??= 0;
+			var result = orederService.GetAll(limit.Value, offset.Value);
+			return View("OrdersList", result);
 		}
 	}
 }

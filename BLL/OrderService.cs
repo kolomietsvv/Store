@@ -22,7 +22,7 @@ namespace BLL
 
 		public List<Order> GetAll(long limit, long offset)
 		{
-			throw new System.NotImplementedException();
+			return entityDAO.GetAll(limit, offset);
 		}
 
 		public Order GetById(long id)

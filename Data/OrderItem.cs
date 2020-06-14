@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Data
+﻿namespace Data
 {
-	public class OrderItem : Entity<long>
+	public class OrderItem : Item
 	{
 		public long Count { get; set; }
 	}
