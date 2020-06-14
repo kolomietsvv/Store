@@ -22,7 +22,7 @@ namespace DAL.MSSQL
 				var sqlParam = parameters.AddWithValue("@items", new OrderDataCollection(order));
 				sqlParam.SqlDbType = SqlDbType.Structured;
 			},
-			GetOrder, item => item.User.Id, OrdersByUser);
+			GetPlainOrder, item => item.User.Id, OrdersByUser);
 		}
 
 		public Order Delete(long entity)
@@ -37,7 +37,7 @@ namespace DAL.MSSQL
 				parameters.AddWithValue("@limit", limit);
 				parameters.AddWithValue("@offset", offset);
 			},
-			GetOrder, item => item.Id, OrdersById);
+			GetFullOrder, item => item.Id, OrdersById);
 		}
 
 		public Order GetById(long id)
@@ -55,7 +55,7 @@ namespace DAL.MSSQL
 			throw new System.NotImplementedException();
 		}
 
-		private Order GetOrder(SqlDataReader reader)
+		private Order GetFullOrder(SqlDataReader reader)
 		{
 			return new Order
 			{
@@ -78,6 +78,26 @@ namespace DAL.MSSQL
 						Count = (long)reader["itemCount"],
 					}
 				},
+			};
+		}
+
+		private Order GetPlainOrder(SqlDataReader reader)
+		{
+			return new Order
+			{
+				Id = (long)reader["orderNumber"],
+				User = new User
+				{
+					Id = (long)reader["userId"],
+				},
+				Items = new List<OrderItem>
+				{
+					new OrderItem
+					{
+						Id = (long)reader["itemId"],
+						Count = (long)reader["count"]
+					}
+				}
 			};
 		}
 
